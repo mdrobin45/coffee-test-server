@@ -1,11 +1,27 @@
+const { MongoClient, ObjectId } = require("mongodb");
 const express = require("express");
-const port = process.env.PORT || 3000;
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-   res.send("server is running");
+const uri =
+   "mongodb+srv://espresso_coffee_shop:VPqGgaIUeqaEyLnq@cluster0.ywsqr.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri);
+
+app.get("/", async (req, res) => {
+   let database = await client.db("usersdb");
+   const userCol = database.collection("users");
+   const query = { _id: ObjectId("652e39d03da982aff7048375") };
+   const result = userCol.findOne(query);
+   res.send(result);
 });
 
-app.listen(port, () => {
-   console.log("Server listening");
+client.connect((err) => {
+   if (err) {
+      console.error(err);
+      return false;
+   }
+   // connection to mongo is successful, listen for requests
+   app.listen(PORT, () => {
+      console.log("listening for requests");
+   });
 });
