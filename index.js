@@ -3,8 +3,12 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// iBTCWd03PNorpC6o
+// coffee-shop
+
 const uri =
-   "mongodb+srv://espresso_coffee_shop:VPqGgaIUeqaEyLnq@cluster0.ywsqr.mongodb.net/?retryWrites=true&w=majority";
+   "mongodb+srv://coffee-shop:iBTCWd03PNorpC6o@cluster0.ywsqr.mongodb.net/?retryWrites=true&w=majority";
+
 const client = new MongoClient(uri);
 
 app.get("/", async (req, res) => {
